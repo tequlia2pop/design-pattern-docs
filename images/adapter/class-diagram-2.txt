@@ -1,0 +1,26 @@
+@startuml
+
+interface Target {
+	void request()
+}
+
+class Adaptee {
+	+void specificRequest()
+}
+
+class Adapter {
+	-Adaptee adaptee
+	+Adapter(Adaptee adaptee)
+	+void request()
+}
+note right: request() 可以转调 adaptee 对象的 specificRequest()
+
+Target <|.. Adapter
+Adaptee <-- Adapter
+
+class Client {
+}
+
+Client .> Target
+
+@enduml

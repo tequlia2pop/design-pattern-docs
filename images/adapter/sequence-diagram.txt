@@ -1,0 +1,19 @@
+@startuml
+autonumber
+actor Client
+participant  Target
+participant  Adapter
+participant  Adaptee
+Client -> Target : 调用客户端需要的功能
+activate Target
+Target -> Adapter : 这个功能会由适配器来实现
+activate Adapter
+Adapter -> Adaptee : 适配器会转调被适配对象的功能
+activate Adaptee
+Adaptee --> Adapter
+deactivate Adaptee
+Adapter --> Target
+deactivate Adapter
+Target --> Client
+deactivate Target
+@enduml

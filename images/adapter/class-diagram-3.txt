@@ -1,0 +1,35 @@
+@startuml
+interface SomeApi {
+	void someRequest()
+}
+class Some {
+	+void someRequest()
+}
+SomeApi <|.. Some
+
+interface ElseApi {
+	void elseRequest()
+}
+class Else {
+	+void elseRequest()
+}
+ElseApi <|.. Else
+
+class TwoDirectAdapter {
+	-SomeApi some
+	-ElseApi els
+	+TwoDirectAdapter(SomeApi some, ElseApi els)
+	+void someRequest()
+	+void elseRequest()
+}
+note bottom: someRequest() 可以转调 els 对象的 elseRequest()；\nelseRequest() 可以转调 some 对象的 someRequest()
+SomeApi <|.. TwoDirectAdapter
+ElseApi <|.. TwoDirectAdapter
+SomeApi <-- TwoDirectAdapter
+ElseApi <-- TwoDirectAdapter
+
+class Client {
+}
+Client ..> SomeApi
+Client ..> ElseApi
+@enduml
